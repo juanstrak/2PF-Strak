@@ -1,0 +1,71 @@
+<mat-drawer-container class="example-container" autosize>
+
+    <!-- SIDEBAR -->
+    <mat-drawer [opened]="true" #drawer class="example-sidenav" mode="side">
+  
+  
+      <img width="50" height="50" src="../../assets/img/avatar.svg">
+  
+      <p>{{ (authUser$ | async)?.email }}</p>
+  
+  
+      <mat-nav-list>
+        <a
+          [routerLink]="link.path"
+          mat-list-item
+          *ngFor="let link of links"
+        >
+        <button color="primary" mat-flat-button>
+          <mat-icon *ngIf="link.icon">{{  link.icon }}</mat-icon> {{ link.title }}
+        </button>
+        </a>
+        <a
+          (click)="logout()"
+          mat-list-item
+        >
+          Cerrar sesión
+        </a>
+      </mat-nav-list>
+    </mat-drawer>
+  
+    <!-- MI WRAPPER  -->
+    <div class="example-sidenav-content">
+      <!-- TOOLBAR  -->
+      <mat-toolbar color="accent">
+        <div class="flex justify-content-between">
+          <div>
+            <button
+              (click)="drawer.toggle()"
+              mat-icon-button
+              class="example-icon"
+              aria-label="Example icon-button with menu icon"
+            >
+              <mat-icon>menu</mat-icon>
+            </button>
+            <span>2PF-Strak </span>
+            <span class="example-spacer"></span>
+            <button
+              mat-icon-button
+              class="example-icon favorite-icon"
+              aria-label="Example icon-button with heart icon"
+            >
+              <mat-icon>favorite</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              class="example-icon"
+              aria-label="Example icon-button with share icon"
+            >
+              <mat-icon>share</mat-icon>
+            </button>
+          </div>
+          <p>{{ (authUser$ | async)?.nombre }}</p>
+        </div>
+      </mat-toolbar>
+  
+      <!-- MIS PAGINAS -->
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  </mat-drawer-container>
