@@ -1,0 +1,9 @@
+<div class="detalle-curso">
+  <h1>Curso {{ curso?.nombre }}</h1>
+  <h1 class="list-alumn">Alumnos inscriptos:</h1>
+  <div *ngFor="let inscripcion of inscripciones">
+    <div>
+      <h2>{{ inscripcion.alumno.nombre }} {{ inscripcion.alumno.apellido }}</h2>
+    </div>
+  </div>
+</div>
