@@ -31,14 +31,19 @@ import { CursosComponent } from './pages/cursos/cursos.component';
     MatDialogModule,
     RouterModule.forChild([
       {
-        // http://localhost:XXXX/dashboard/estudiantes
         path: 'estudiantes',
         loadChildren: () => import('./pages/alumnos/alumnos.module').then((m) => m.AlumnosModule)
       },
       {
         path: 'cursos',
         loadChildren: () => import('./pages/cursos/cursos.module').then((m) => m.CursosModule),
-      }
+      },
+      {
+        path: 'inscripciones',
+        loadChildren: () =>
+          import('./pages/inscripciones/inscripciones.module').then(
+            (m) => m.InscripcionesModule),
+      },
     ])
   ],
   exports: [

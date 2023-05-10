@@ -3,9 +3,7 @@ import { BehaviorSubject, map, Observable, take } from 'rxjs';
 import { Inscripcion } from 'src/app/core/models/cursos-alumnos';
 import { Alumno } from '../../alumnos/models';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-
 import { Curso } from '../../cursos/models';
-
 import {
   AlumnosService,
   ALUMNOS_MOCKS,
@@ -97,7 +95,6 @@ export class InscripcionesServiceService {
   eliminarInscripcion(inscripcionId: number): Observable<Inscripcion[]> {
     this.inscripciones$.pipe(take(1)).subscribe({
       next: (inscripciones) => {
-        //filtro con los que quiero quedarme, todos menos el que coincide en id
         const inscripcionesActualizados = inscripciones.filter(
           (inscripcion) => inscripcion.id !== inscripcionId
         );
@@ -129,8 +126,6 @@ export class InscripcionesServiceService {
 
         this.inscripciones$.next(inscripcionesActualizados);
       },
-      //complete: () => {},
-      //error: () => {}
     });
 
     return this.inscripciones$.asObservable();

@@ -21,8 +21,6 @@ export class InscripcionesComponent implements OnInit {
     'curso',
     'nombreCompleto',
     'fechaInscripcion',
-    'detalle',
-    'editar',
     'eliminar',
   ];
 

@@ -16,7 +16,6 @@ export class CursoDetalleComponent implements OnDestroy {
   inscripciones: Inscripcion[] | undefined = undefined;
 
   private destroyed$ = new Subject();
-
   constructor(
     private dialogRef: MatDialogRef<CursoDetalleComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any
