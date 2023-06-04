@@ -10,27 +10,37 @@ import { AuthGuard } from './auth/guards/auth.guard';
 import { LoginGuard } from './auth/guards/login.guard';
 
 const routes: Routes = [
+  // DASHBOARD
   {
+    // http://localhost:XXXX/dashboard
     path: 'dashboard',
     canActivate: [AuthGuard],
     component: DashboardComponent,
-    loadChildren: () =>
-      import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+    loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule)
   },
+
+  // AUTH
   {
     path: 'auth',
     canActivate: [LoginGuard],
     component: AuthComponent,
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
+
+  // RUTAS INDEFINIDAS....
   {
+    // CUALQUIER RUTA
     path: '**',
-    redirectTo: 'auth',
-  },
-];
+    redirectTo: 'dashboard',
+  }
+]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
+  exports: [
+    RouterModule
+  ]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -1,13 +1,21 @@
+import { Materia } from "../../materias";
+
 export interface Curso {
-    id: number;
-    nombre: string;
-    fecha_inicio: Date;
-    fecha_fin: Date;
-  }
-  
-  export interface CrearCursoPayload {
-    nombre: string;
-    fecha_inicio: Date;
-    fecha_fin: Date;
-  }
-  
+  id: number;
+  materiaId: number;
+  fecha_inicio: Date;
+  fecha_fin: Date;
+}
+
+
+
+export interface CursoWithMateria extends Curso {
+  materia: Materia;
+
+}
+
+export interface CrearCursoPayload {
+  materiaId: number;
+  fecha_inicio: Date;
+  fecha_fin: Date;
+}

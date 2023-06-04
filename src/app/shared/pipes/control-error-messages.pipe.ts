@@ -16,6 +16,7 @@ export class ControlErrorMessagesPipe implements PipeTransform {
       maxlength: '..',
       min: 'Debe ser mayor a ...',
       max: '',
+      noHomero: 'El valor introducido no puede ser la palabra Homero'
     }
 
     if (opciones[error.key]) {

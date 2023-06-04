@@ -4,7 +4,6 @@ import { DashboardComponent } from './dashboard.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { AlumnosModule } from './pages/alumnos/alumnos.module';
 import { RouterModule } from '@angular/router';
@@ -13,10 +12,11 @@ import { CursosModule } from './pages/cursos/cursos.module';
 import { AlumnosComponent } from './pages/alumnos/alumnos.component';
 import { AlumnoDetalleComponent } from './pages/alumnos/pages/alumno-detalle/alumno-detalle.component';
 import { CursosComponent } from './pages/cursos/cursos.component';
+import { AdminGuard } from '../auth/guards/admin.guard';
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     CommonModule,
@@ -26,29 +26,25 @@ import { CursosComponent } from './pages/cursos/cursos.component';
     MatIconModule,
     MatButtonModule,
     MatListModule,
-    AlumnosModule,
-    CursosModule,
-    MatDialogModule,
     RouterModule.forChild([
       {
+
         path: 'estudiantes',
         loadChildren: () => import('./pages/alumnos/alumnos.module').then((m) => m.AlumnosModule)
+       
       },
       {
         path: 'cursos',
-        loadChildren: () => import('./pages/cursos/cursos.module').then((m) => m.CursosModule),
+        loadChildren: () => import('./pages/cursos/cursos.module').then((m) => m.CursosModule)
       },
-      {
-        path: 'inscripciones',
-        loadChildren: () =>
-          import('./pages/inscripciones/inscripciones.module').then(
-            (m) => m.InscripcionesModule),
-      },
+      {path: 'inscripciones',
+       loadChildren: () => import('./pages/inscripciones/inscripciones.module').then((m) => m.InscripcionesModule), 
+
+      }
     ])
   ],
   exports: [
-    DashboardComponent,
-    RouterModule,
+    DashboardComponent
   ]
 })
 export class DashboardModule { }

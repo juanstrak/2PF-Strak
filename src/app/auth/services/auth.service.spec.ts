@@ -33,7 +33,6 @@ describe('Pruebas sobre AuthService', () => {
         apellido: 'testapellido',
         email: loginFake.email,
         nombre: 'testnombre',
-        password: loginFake.password,
         role: 'admin',
         token: 'asdjkasdnasjhdj36231321',
       },
@@ -49,7 +48,6 @@ describe('Pruebas sobre AuthService', () => {
     service.login(loginFake);
     httpController
       .expectOne({
-        // http://localhost:3000/usuarios
         url: `${enviroment.apiBaseUrl}/usuarios?email=${loginFake.email}&password=${loginFake.password}`,
         method: 'GET',
       })
@@ -69,7 +67,6 @@ describe('Pruebas sobre AuthService', () => {
         apellido: 'testapellido',
         email: loginFake.email,
         nombre: 'testnombre',
-        password: loginFake.password,
         role: 'admin',
         token: 'asdjkasdnasjhdj36231321',
       },
@@ -78,7 +75,6 @@ describe('Pruebas sobre AuthService', () => {
     service.login(loginFake);
     httpController
       .expectOne({
-        // http://localhost:3000/usuarios
         url: `${enviroment.apiBaseUrl}/usuarios?email=${loginFake.email}&password=${loginFake.password}`,
         method: 'GET',
       })

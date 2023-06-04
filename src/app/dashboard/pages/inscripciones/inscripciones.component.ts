@@ -1,73 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { Inscripcion } from 'src/app/core/models/cursos-alumnos';
-import { InscripcionesServiceService } from './services/inscripciones.service';
-import { ReactiveFormsModule } from '@angular/forms';
-import { AbmInscripcionesComponent } from './abm-inscripciones/abm-inscripciones.component';
+import { InscripcionesService } from './services/inscripciones.service';
+import { Store } from '@ngrx/store';
+import { InscripcionesActions } from './store/inscripciones.action';
+import { Observable } from 'rxjs';
+import { selectInscripcionesState } from './store/inscripciones.selector';
+import { State } from './store/inscripciones.reducer';
 import { MatDialog } from '@angular/material/dialog';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { InscripcionDialogComponent } from './components/inscripcion-dialog.component';
+
 
 @Component({
   selector: 'app-inscripciones',
   templateUrl: './inscripciones.component.html',
-  styleUrls: ['./inscripciones.component.scss'],
+  styleUrls: ['./inscripciones.component.scss']
 })
-export class InscripcionesComponent implements OnInit {
-  dataSource = new MatTableDataSource<Inscripcion>();
-  inscripciones: Inscripcion[] = [];
-
-  displayedColumns = [
-    'id',
-    'curso',
-    'nombreCompleto',
-    'fechaInscripcion',
-    'eliminar',
-  ];
+export class InscripcionesComponent implements OnInit{
+  state$: Observable<State>;
 
   constructor(
-    private inscripcionesService: InscripcionesServiceService,
-    private matDialog: MatDialog
+    private inscripcionesService: InscripcionesService,
+    private matDialog: MatDialog,
+    private store: Store,
   ) {
-    this.inscripcionesService
-      .getInscripciones()
-      .subscribe((res: Inscripcion[]) => {
-        this.inscripciones = res;
-      });
+    this.state$ = this.store.select(selectInscripcionesState)
   }
-
   ngOnInit(): void {
-    this.inscripcionesService.getInscripciones().subscribe({
-      next: (inscripciones) => {
-        this.dataSource.data = inscripciones;
-      },
-    });
+    this.store.dispatch(InscripcionesActions.loadInscripciones());
   }
 
-  aplicarFiltros(ev: Event): void {
-    const inputValue = (ev.target as HTMLInputElement)?.value;
-    this.dataSource.filter = inputValue?.trim()?.toLowerCase();
+  eliminarInscripcionPorId(id: number): void {
+    this.store.dispatch(InscripcionesActions.deleteInscripcion({ id }))
   }
 
-  eliminarInscripcion(insc: Inscripcion): void {
-    this.inscripcionesService.eliminarInscripcion(insc.id);
+  crearInscripcion(): void {
+    this.matDialog.open(InscripcionDialogComponent);
   }
 
-  editarInscripcion(inscripcionParaEditar: Inscripcion): void {
-    {
-      const dialog = this.matDialog.open(AbmInscripcionesComponent, {
-        data: {
-          inscripcionParaEditar,
-        },
-      });
-
-      dialog.afterClosed().subscribe((valorDelFormulario) => {
-        if (valorDelFormulario) {
-          this.inscripcionesService.editarInscripcion(
-            inscripcionParaEditar.id,
-            valorDelFormulario
-          );
-        }
-      });
-    }
-  }
 }

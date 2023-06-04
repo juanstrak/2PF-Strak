@@ -11,12 +11,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from '../shared/pipes/pipes.module';
 import { RegisterComponent } from './pages/register/register.component';
-import { AppComponent } from '../app.component';
 
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent,
+    component: LoginComponent
   },
   {
     path: 'register',
@@ -25,11 +24,14 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: 'login',
-  },
-];
+  }
+]
 
 @NgModule({
-  declarations: [AuthComponent, LoginComponent],
+  declarations: [
+    AuthComponent,
+    LoginComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -40,6 +42,6 @@ const routes: Routes = [
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-  ],
+  ]
 })
-export class AuthModule {}
+export class AuthModule { }

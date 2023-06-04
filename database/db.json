@@ -17,7 +17,16 @@
         "token": "qwertyuiop",
         "role": "admin",
         "id": 4
-      }
+      },
+      {
+        "id": 5,
+        "nombre": "Rodrigo",
+        "apellido": "Gimenez",
+        "email": "Rodrigo@gmail.com",
+        "password": "123456",
+        "token": "jajkahaPKJS14284ASUI9DH17842UU",
+        "role": "user"
+    }
     ],
     "cursos": [
       {

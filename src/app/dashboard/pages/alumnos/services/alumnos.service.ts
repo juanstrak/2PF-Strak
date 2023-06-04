@@ -1,44 +1,54 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, map } from 'rxjs';
-import { Alumno } from '../models';
+import { Alumno } from '../alumnos.component';
+import { HttpClient } from '@angular/common/http';
+import { enviroment } from 'src/environments/environments';
 
-export const ALUMNOS_MOCKS: Alumno[] = [
-  {
-    id: 1,
-    nombre: 'Santiago',
-    apellido: 'Gonzalez',
-    fecha_registro: new Date()
-  },
-  {
-    id: 2,
-    nombre: 'Alan',
-    apellido: 'Olivero',
-    fecha_registro: new Date()
-  },
-  {
-    id: 3,
-    nombre: 'Candela',
-    apellido: 'Miguez',
-    fecha_registro: new Date()
-  },
-];
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AlumnosService {
-  // BehaviourSubject
-  private alumnos$ = new BehaviorSubject<Alumno[]>(ALUMNOS_MOCKS);
 
-  constructor() {}
+  // Subject
+  private estudiantes2$ = new Subject<Alumno[]>();
+
+  // BehaviorSubject
+  private estudiantes$ = new BehaviorSubject<Alumno[]>([
+    {
+      id: 1,
+      nombre: 'Pablo',
+      apellido: 'Gonzalez',
+      fecha_registro: new Date()
+    },
+    {
+      id: 2,
+      nombre: 'Pedro',
+      apellido: 'Perez',
+      fecha_registro: new Date()
+    },
+    {
+      id: 3,
+      nombre: 'Susana',
+      apellido: 'Rodriguez',
+      fecha_registro: new Date()
+    },
+  ])
+
+  constructor(private httpClient: HttpClient) { }
+
+
+  getAlumnosFromDb(): Observable<Alumno[]> {
+    return this.httpClient.get<Alumno[]>(`${enviroment.apiBaseUrl}/alumnos`);
+  }
 
   obtenerAlumnos(): Observable<Alumno[]> {
-    this.alumnos$.next(ALUMNOS_MOCKS);
-    return this.alumnos$.asObservable();
+    return this.estudiantes$.asObservable();
   }
 
   obtenerAlumnoPorId(id: number): Observable<Alumno | undefined> {
-    return this.alumnos$
-      .asObservable()
-      .pipe(map((alumnos) => alumnos.find((a) => a.id === id)));
+    return this.estudiantes$.asObservable()
+      .pipe(
+        map((alumnos) => alumnos.find((a) => a.id === id))
+      )
   }
 }

@@ -53,8 +53,9 @@ export class AlumnosComponent {
       if (valor) {
         this.dataSource.data = [
           ...this.dataSource.data,
+          // AGREGANDO NUEVO ELEMENTO:
           {
-            ...valor, 
+            ...valor, // { nombre: 'xxxxxx', apellido: 'xxxxx' }
             fecha_registro: new Date(),
             id: this.dataSource.data.length + 1,
           }
@@ -80,7 +81,7 @@ export class AlumnosComponent {
       if (valorDelFormulario) {
         this.dataSource.data = this.dataSource.data.map(
           (alumnoActual) => alumnoActual.id === alumnoParaEditar.id
-            ? ({ ...alumnoActual, ...valorDelFormulario})
+            ? ({ ...alumnoActual, ...valorDelFormulario}) // { nombre: 'xxxxxx', apellido: 'xxxxx' }
             : alumnoActual,
         );
       }
